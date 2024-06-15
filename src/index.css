@@ -18,7 +18,7 @@ aside {
   min-height: 100vh;
   position: fixed;
   width: 25vw;
-  right: 0vw;
+  right: -25vw;
   top: 0;
   display: flex;
   flex-direction: column;
