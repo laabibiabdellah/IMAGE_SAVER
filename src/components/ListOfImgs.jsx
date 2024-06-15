@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../index.css";
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 let imgs = [
   "https://picsum.photos/200/300",
@@ -12,6 +12,7 @@ let imgs = [
 
 export default function ListOfImgs() {
   let dispatch = useDispatch();
+  let listImgs = useSelector((state) => state.imgs);
 
   // Refs to the aside and close buttons
   const asideRef = useRef(null);
@@ -24,20 +25,26 @@ export default function ListOfImgs() {
   The event object triggered by clicking the "Save this image" button
   */
   let saveImge = (e) => {
+    // Get the source of the image clicked
+    let imgSrc = e.currentTarget.previousSibling.src;
+
+    if (listImgs.includes(imgSrc)) {
+      alert("already saved");
+      return;
+    }
     dispatch({
       type: "SAVE_IMG",
       payload: e.currentTarget.previousSibling.src,
     });
-    // Get the source of the image clicked
-    let imgId = e.currentTarget.previousSibling.src;
 
     // Check if the image is already saved
-    if (arrayOfImgs.includes(imgId)) {
+    if (arrayOfImgs.includes(imgSrc)) {
       alert("already saved");
       return;
     }
+
     // Add the image to the list of saved images
-    arrayOfImgs.push(imgId);
+    arrayOfImgs.push(imgSrc);
     setArrayOfImgs([...arrayOfImgs]);
 
     // Show the list of saved images

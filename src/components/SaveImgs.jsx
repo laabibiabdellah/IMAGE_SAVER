@@ -7,7 +7,7 @@ export default function SaveImgs() {
 
   return (
     <>
-      <div className="saveImgs container py-5">
+      <div className="saveImgs container py-5" style={{ minHeight: "100vh" }}>
         {imgs.length > 0 ? (
           imgs.map((img, index) => (
             <div className="card" key={index}>
